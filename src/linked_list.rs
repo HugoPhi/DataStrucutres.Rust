@@ -39,6 +39,19 @@ impl<T> LinkedList<T> {
         length
     }
 
+    pub fn insert_to(&mut self, value: T, ix: usize) {
+        let new_node = Box::new(Node {
+            value,
+            next: self.head.take(),
+        });
+
+        let mut current = &mut self.head;
+        for _ in 0..ix {
+            current = &mut current.as_mut().unwrap().next;
+        }
+        current.replace(new_node);
+    }
+
     pub fn is_empty(&self) -> bool {
         self.head.is_none()
     }
